@@ -1,4 +1,4 @@
-package br.com.mars.test;
+package br.com.mars;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
