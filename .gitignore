@@ -1,0 +1,16 @@
+bin/
+target/
+.project
+.settings
+.classpath
+.idea
+*.log
+*.out
+*.iml
+.DS_Store
+.gitignore~
+README.md~
+logs/
+log4j.xml
+logback.xml
+.metadata
