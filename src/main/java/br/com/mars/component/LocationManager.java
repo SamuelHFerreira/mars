@@ -7,24 +7,29 @@ import br.com.mars.domain.data.Position;
 @Component
 public class LocationManager {
 
-    private static final Integer MAX_X_RANGE = 5;
-    private static final Integer MAX_Y_RANGE = 5;
+    private static final Integer MAX_RANGE = 5;
+    private static final Integer MIN_RANGE = 0;
 
-    private Position position;
+    private Position currentPosition;
 
     public LocationManager() {
-        this.position = new Position();
+        this.currentPosition = new Position();
     }
 
     public void updatePosition(Position newPosition) {
-        if (newPosition.getxAxis() <= MAX_X_RANGE)
-            this.position.setxAxis(newPosition.getxAxis());
-        if (newPosition.getyAxis() <= MAX_Y_RANGE)
-            this.position.setyAxis(newPosition.getyAxis());
-        this.position.setCardinalPoint(newPosition.getCardinalPoint());
+        if (isNewPositionValid(newPosition))
+            this.currentPosition = newPosition;
     }
 
     public Position getCurrentPosition() {
-        return position;
+        return currentPosition;
+    }
+
+    private boolean isNewPositionValid(Position newPosition) {
+        return isValidRange(newPosition.getxAxis()) && isValidRange(newPosition.getyAxis());
+    }
+
+    private Boolean isValidRange(Integer axis) {
+        return axis <= MAX_RANGE && axis >= MIN_RANGE;
     }
 }

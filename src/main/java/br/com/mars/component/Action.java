@@ -1,5 +1,8 @@
 package br.com.mars.component;
 
+import br.com.mars.domain.data.Position;
+
+@FunctionalInterface
 public interface Action {
-    void perform();
+    Position perform(Position position);
 }

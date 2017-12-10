@@ -14,6 +14,12 @@ public class Position {
         this.cardinalPoint = CardinalPoint.NORTH;
     }
 
+    public Position(Integer xAxis, Integer yAxis, CardinalPoint cardinalPoint) {
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
+        this.cardinalPoint = cardinalPoint;
+    }
+
     public void increasexAxis() {
         this.xAxis++;
     }
@@ -34,23 +40,11 @@ public class Position {
         return xAxis;
     }
 
-    public void setxAxis(Integer xAxis) {
-        this.xAxis = xAxis;
-    }
-
     public Integer getyAxis() {
         return yAxis;
     }
 
-    public void setyAxis(Integer yAxis) {
-        this.yAxis = yAxis;
-    }
-
     public CardinalPoint getCardinalPoint() {
         return cardinalPoint;
-    }
-
-    public void setCardinalPoint(CardinalPoint cardinalPoint) {
-        this.cardinalPoint = cardinalPoint;
     }
 }

@@ -1,6 +1,9 @@
 package br.com.mars.component;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import static br.com.mars.domain.constant.CardinalPoint.EAST;
+import static br.com.mars.domain.constant.CardinalPoint.NORTH;
+import static br.com.mars.domain.constant.CardinalPoint.SOUTH;
+import static br.com.mars.domain.constant.CardinalPoint.WEST;
 
 import br.com.mars.domain.constant.CardinalPoint;
 import br.com.mars.domain.constant.Command;
@@ -8,40 +11,41 @@ import br.com.mars.domain.data.Position;
 
 public class WalkAction implements Action {
 
-    @Autowired
-    LocationManager locationManager;
-
-    Command command;
+    private Command command;
 
     public WalkAction(Command command) {
         this.command = command;
     }
 
     @Override
-    public void perform() {
-        Position position = locationManager.getCurrentPosition();
-        if (Command.M.equals(this.command))
-            updateForwardPosition(position);
+    public Position perform(Position position) {
+        if (Command.M == this.command)
+            return getForwardPosition(position);
         else
-            updateNewCardinalPoint(position, command);
-        locationManager.updatePosition(position);
+            return getNewCardinalPosition(position, command);
     }
 
-    private void updateNewCardinalPoint(Position position, Command command) {
+    private Position getNewCardinalPosition(Position currentPosition, Command command) {
+        CardinalPoint newCardinalPoint;
         if (Command.L == command)
-            position.setCardinalPoint(position.getCardinalPoint().getLeftRotation());
-        if (Command.R == command)
-            position.setCardinalPoint(position.getCardinalPoint().getRightRotation());
+            newCardinalPoint = CardinalRotation.getLeftRotation(currentPosition.getCardinalPoint());
+        else
+            newCardinalPoint = CardinalRotation.getRightRotation(currentPosition.getCardinalPoint());
+        return new Position(currentPosition.getxAxis(), currentPosition.getyAxis(), newCardinalPoint);
     }
 
-    private void updateForwardPosition(Position position) {
-        if (CardinalPoint.NORTH == position.getCardinalPoint())
-            position.increasexAxis();
-        if (CardinalPoint.SOUTH == position.getCardinalPoint())
-            position.increasexAxis();
-        if (CardinalPoint.EAST == position.getCardinalPoint())
-            position.decreasexAxis();
-        if (CardinalPoint.WEST == position.getCardinalPoint())
-            position.decreaseyAxis();
+    private Position getForwardPosition(Position currentPosition) {
+        Position newPosition = new Position(currentPosition.getxAxis(),
+                currentPosition.getyAxis(),
+                currentPosition.getCardinalPoint());
+        if (NORTH == currentPosition.getCardinalPoint())
+            newPosition.increaseyAxis();
+        if (SOUTH == currentPosition.getCardinalPoint())
+            newPosition.decreaseyAxis();
+        if (EAST == currentPosition.getCardinalPoint())
+            newPosition.increasexAxis();
+        if (WEST == currentPosition.getCardinalPoint())
+            newPosition.decreasexAxis();
+        return newPosition;
     }
 }
