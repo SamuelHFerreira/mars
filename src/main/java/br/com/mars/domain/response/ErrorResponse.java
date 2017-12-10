@@ -1,4 +1,4 @@
-package br.com.mars.domain;
+package br.com.mars.domain.response;
 
 import java.io.Serializable;
 

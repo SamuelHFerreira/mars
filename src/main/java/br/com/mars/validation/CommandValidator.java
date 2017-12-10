@@ -35,6 +35,8 @@ public class CommandValidator implements ConstraintValidator<ValidateCommands, S
 
     private boolean isInvalidCommand(String command) {
         return !validCommands.stream().filter(validCommand -> validCommand.name()
-                .equalsIgnoreCase(command)).findAny().isPresent();
+                .equalsIgnoreCase(command))
+                .findAny()
+                .isPresent();
     }
 }
