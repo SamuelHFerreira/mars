@@ -14,26 +14,14 @@ public class Position {
         this.cardinalPoint = CardinalPoint.NORTH;
     }
 
-    public Position(Integer xAxis, Integer yAxis, CardinalPoint cardinalPoint) {
-        this.xAxis = xAxis;
-        this.yAxis = yAxis;
-        this.cardinalPoint = cardinalPoint;
+    public Position(Builder builder) {
+        this.xAxis = builder.xAxis;
+        this.yAxis = builder.yAxis;
+        this.cardinalPoint = builder.cardinalPoint;
     }
 
-    public void increasexAxis() {
-        this.xAxis++;
-    }
-
-    public void increaseyAxis() {
-        this.yAxis++;
-    }
-
-    public void decreasexAxis() {
-        this.xAxis--;
-    }
-
-    public void decreaseyAxis() {
-        this.yAxis--;
+    public static Builder builder(Position position) {
+        return new Builder(position);
     }
 
     public Integer getxAxis() {
@@ -46,5 +34,46 @@ public class Position {
 
     public CardinalPoint getCardinalPoint() {
         return cardinalPoint;
+    }
+
+    public static class Builder {
+        private Integer xAxis;
+        private Integer yAxis;
+        private CardinalPoint cardinalPoint;
+
+        public Builder(Position position) {
+            this.xAxis = position.getxAxis();
+            this.yAxis = position.getyAxis();
+            this.cardinalPoint = position.getCardinalPoint();
+        }
+
+        public Builder cardinalPoint(CardinalPoint cardinalPoint) {
+            this.cardinalPoint = cardinalPoint;
+            return this;
+        }
+
+        public Builder increasexAxis() {
+            this.xAxis++;
+            return this;
+        }
+
+        public Builder increaseyAxis() {
+            this.yAxis++;
+            return this;
+        }
+
+        public Builder decreasexAxis() {
+            this.xAxis--;
+            return this;
+        }
+
+        public Builder decreaseyAxis() {
+            this.yAxis--;
+            return this;
+        }
+
+        public Position build() {
+            return new Position(this);
+        }
     }
 }

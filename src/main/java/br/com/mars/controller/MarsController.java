@@ -28,6 +28,8 @@ public class MarsController {
 
     @PostMapping("/{commands}")
     public ResponseEntity<Position> move(@PathVariable("commands") @ValidateCommands String commands) {
-        return ResponseEntity.ok(walkService.followCommands(commands));
+        List<Command> commandList = Arrays.asList(commands.split("")).stream().map(s -> Command.valueOf(s)).collect(
+                Collectors.toList());
+        return ResponseEntity.ok(walkService.followCommands(commandList));
     }
 }

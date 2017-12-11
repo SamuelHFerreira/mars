@@ -2,6 +2,7 @@ package br.com.mars.component;
 
 import org.springframework.stereotype.Component;
 
+import br.com.mars.component.action.Action;
 import br.com.mars.domain.data.Position;
 
 @Component
@@ -16,13 +17,17 @@ public class LocationManager {
         this.currentPosition = new Position();
     }
 
-    public void updatePosition(Position newPosition) {
-        if (isNewPositionValid(newPosition))
-            this.currentPosition = newPosition;
+    public void updatePosition(Action action) {
+        updatePosition(action.perform(getCurrentPosition()));
     }
 
     public Position getCurrentPosition() {
         return currentPosition;
+    }
+
+    private void updatePosition(Position newPosition) {
+        if (isNewPositionValid(newPosition))
+            this.currentPosition = newPosition;
     }
 
     private boolean isNewPositionValid(Position newPosition) {
