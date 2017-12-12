@@ -1,4 +1,4 @@
-package br.com.mars.component;
+package br.com.mars.component.action;
 
 import static br.com.mars.domain.constant.CardinalPoint.EAST;
 import static br.com.mars.domain.constant.CardinalPoint.NORTH;
@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.mars.domain.constant.CardinalPoint;
+import br.com.mars.domain.constant.Command;
 
 public class CardinalRotation {
 
@@ -21,29 +22,21 @@ public class CardinalRotation {
         ROTATIONS_MAP.put(SOUTH, new Rotation(EAST, WEST));
     }
 
-    public static CardinalPoint getLeftRotation(CardinalPoint cardinalPoint) {
-        return ROTATIONS_MAP.get(cardinalPoint).getLeftRotation();
-    }
-
-    public static CardinalPoint getRightRotation(CardinalPoint cardinalPoint) {
-        return ROTATIONS_MAP.get(cardinalPoint).getRightRotation();
+    public static CardinalPoint getRotation(CardinalPoint originCardinalPoint, Command command) {
+       return ROTATIONS_MAP.get(originCardinalPoint).getRotation(command);
     }
 
     protected static class Rotation {
-        private CardinalPoint leftRotation;
-        private CardinalPoint rightRotation;
+        private Map<Command, CardinalPoint> rotations;
 
         public Rotation(CardinalPoint leftRotation, CardinalPoint rightRotation) {
-            this.leftRotation = leftRotation;
-            this.rightRotation = rightRotation;
+            this.rotations = new HashMap<>();
+            this.rotations.put(Command.L, leftRotation);
+            this.rotations.put(Command.R, rightRotation);
         }
 
-        public CardinalPoint getLeftRotation() {
-            return leftRotation;
-        }
-
-        public CardinalPoint getRightRotation() {
-            return rightRotation;
+        public CardinalPoint getRotation(Command command) {
+            return rotations.get(command);
         }
     }
 }

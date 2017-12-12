@@ -1,4 +1,4 @@
-package br.com.mars.service;
+package br.com.mars.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -7,21 +7,34 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.mars.component.location.LocationManager;
 import br.com.mars.component.action.Action;
-import br.com.mars.component.action.ActionCoordinator;
+import br.com.mars.component.action.coordinator.Coordinator;
 import br.com.mars.domain.constant.Command;
 import br.com.mars.domain.data.Position;
+import br.com.mars.exception.MapViolationException;
+import br.com.mars.service.RobotService;
 
 @Service
-public class WalkService {
+public class RobotServiceImpl implements RobotService {
 
-    @Autowired ActionCoordinator actionCoordinator;
+    @Autowired
+    Coordinator coordinator;
 
-    public Position followCommands(final List<Command> commands) {
+    @Autowired
+    LocationManager locationManager;
+
+    @Override
+    public Position followCommands(final List<Command> commands) throws MapViolationException {
         List<Action> actions = commands.stream().map(command -> getCommandAction(command)).collect
                 (Collectors.toList());
-        actions.stream().forEach(action -> actionCoordinator.addAction(action));
-        return actionCoordinator.run();
+        actions.stream().forEach(action -> coordinator.addAction(action));
+        return coordinator.run();
+    }
+
+    @Override
+    public Position getCurrentPosition() {
+        return locationManager.getCurrentPosition();
     }
 
     private Action getCommandAction(final Command command) {

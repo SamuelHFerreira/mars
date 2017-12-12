@@ -1,5 +1,6 @@
-package br.com.mars.component.action;
+package br.com.mars.component.action.impl;
 
+import br.com.mars.component.action.Action;
 import br.com.mars.domain.constant.Command;
 import br.com.mars.domain.data.Position;
 

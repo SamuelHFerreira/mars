@@ -1,8 +1,8 @@
 package br.com.mars.domain.constant;
 
 import br.com.mars.component.action.Action;
-import br.com.mars.component.action.TurnAroundAction;
-import br.com.mars.component.action.WalkAction;
+import br.com.mars.component.action.impl.TurnAroundAction;
+import br.com.mars.component.action.impl.WalkAction;
 
 public enum Command {
     L(TurnAroundAction.class),

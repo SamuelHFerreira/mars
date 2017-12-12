@@ -36,6 +36,26 @@ public class Position {
         return cardinalPoint;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Position position = (Position) o;
+
+        if (!xAxis.equals(position.xAxis)) return false;
+        if (!yAxis.equals(position.yAxis)) return false;
+        return cardinalPoint == position.cardinalPoint;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = xAxis.hashCode();
+        result = 31 * result + yAxis.hashCode();
+        result = 31 * result + cardinalPoint.hashCode();
+        return result;
+    }
+
     public static class Builder {
         private Integer xAxis;
         private Integer yAxis;
