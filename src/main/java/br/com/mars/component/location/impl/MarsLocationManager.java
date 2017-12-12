@@ -31,8 +31,10 @@ public class MarsLocationManager extends LocationManager {
     private Position updatePosition(Position newPosition) throws MapViolationException {
         if (isNewPositionValid(newPosition))
             return this.currentPosition = newPosition;
-        else
+        else {
+            this.currentPosition = new Position();
             throw new MapViolationException(newPosition);
+        }
     }
 
     private boolean isNewPositionValid(Position newPosition) {
