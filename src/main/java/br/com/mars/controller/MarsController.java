@@ -37,7 +37,7 @@ public class MarsController {
 
     @GetMapping
     public ResponseEntity<PositionResponse> whereIam() {
-        Position currentPosition= robotService.getCurrentPosition();
+        Position currentPosition = robotService.getCurrentPosition();
         return ResponseEntity.ok(new PositionResponse(currentPosition));
     }
 }

@@ -12,7 +12,7 @@ import br.com.mars.domain.constant.Command;
 
 public class CommandValidator implements ConstraintValidator<ValidateCommands, String> {
 
-    List<Command> validCommands;
+    private List<Command> validCommands;
 
     @Override
     public void initialize(ValidateCommands validateCommands) {
@@ -24,18 +24,24 @@ public class CommandValidator implements ConstraintValidator<ValidateCommands, S
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         List<String> commands = Pattern.compile("").splitAsStream(value).collect(Collectors.toList());
-        return !hasAnyInvalidCommand(commands);
+        return hasOnlyValid(commands);
     }
 
-    private boolean hasAnyInvalidCommand(List<String> commands) {
-        return commands.stream().filter(command -> isInvalidCommand(command))
+    public List<Command> getValidCommands() {
+        return validCommands;
+    }
+
+    private boolean hasOnlyValid(List<String> commands) {
+        return !commands.stream()
+                .filter(command -> isInvalidCommand(command))
                 .findAny()
                 .isPresent();
     }
 
     private boolean isInvalidCommand(String command) {
-        return !validCommands.stream().filter(validCommand -> validCommand.name()
-                .equalsIgnoreCase(command))
+        return !getValidCommands().stream()
+                .filter(validCommand -> validCommand.name()
+                        .equalsIgnoreCase(command))
                 .findAny()
                 .isPresent();
     }

@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.mars.component.location.LocationManager;
 import br.com.mars.component.action.Action;
 import br.com.mars.component.action.coordinator.Coordinator;
+import br.com.mars.component.location.LocationManager;
 import br.com.mars.domain.constant.Command;
 import br.com.mars.domain.data.Position;
 import br.com.mars.exception.MapViolationException;

@@ -23,7 +23,7 @@ public class CardinalRotation {
     }
 
     public static CardinalPoint getRotation(CardinalPoint originCardinalPoint, Command command) {
-       return ROTATIONS_MAP.get(originCardinalPoint).getRotation(command);
+        return ROTATIONS_MAP.get(originCardinalPoint).getRotation(command);
     }
 
     protected static class Rotation {
