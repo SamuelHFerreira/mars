@@ -14,5 +14,5 @@ public abstract class LocationManager {
 
     public abstract Position updatePosition(Action action) throws MapViolationException;
 
-    public abstract Position getCurrentPosition();
+    public abstract Position getFinalPosition();
 }

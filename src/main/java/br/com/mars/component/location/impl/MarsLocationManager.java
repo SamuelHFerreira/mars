@@ -18,7 +18,13 @@ public class MarsLocationManager extends LocationManager {
     }
 
     @Override
-    public Position getCurrentPosition() {
+    public Position getFinalPosition() {
+        Position.Builder finalPositionBuilder = Position.builder(getCurrentPosition());
+        this.currentPosition = new Position();
+        return finalPositionBuilder.build();
+    }
+
+    private Position getCurrentPosition() {
         return this.currentPosition;
     }
 

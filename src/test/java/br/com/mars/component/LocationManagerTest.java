@@ -71,8 +71,7 @@ public class LocationManagerTest {
         locationManager.updatePosition(walkAction);
         locationManager.updatePosition(walkAction);
         locationManager.updatePosition(walkAction);
-
-        Position newPosition = locationManager.updatePosition(walkAction);
+        locationManager.updatePosition(walkAction);
     }
 
     @Test(expected = MapViolationException.class)
@@ -84,35 +83,5 @@ public class LocationManagerTest {
         locationManager.updatePosition(walkAction);
         locationManager.updatePosition(walkAction);
         locationManager.updatePosition(walkAction);
-    }
-
-    @Test
-    public void userCanWalkAfterReachBoundaryTest() {
-        final Position zeroPosition = new Position();
-        final Position walkedPosition = Position.builder(zeroPosition)
-                .increaseyAxis()
-                .increaseyAxis()
-                .increaseyAxis()
-                .increaseyAxis()
-                .increaseyAxis()
-                .cardinalPoint(CardinalPoint.EAST)
-                .increasexAxis()
-                .build();
-        WalkAction walkAction = new WalkAction(Command.M);
-        locationManager.updatePosition(walkAction);
-        locationManager.updatePosition(walkAction);
-        locationManager.updatePosition(walkAction);
-        locationManager.updatePosition(walkAction);
-        locationManager.updatePosition(walkAction);
-
-        try {
-            locationManager.updatePosition(walkAction);
-        } catch (MapViolationException exception) {
-        }
-        TurnAroundAction turnAroundAction = new TurnAroundAction(Command.R);
-        locationManager.updatePosition(turnAroundAction);
-        Position newPosition = locationManager.updatePosition(walkAction);
-        assertThat(newPosition)
-                .isEqualTo(walkedPosition);
     }
 }

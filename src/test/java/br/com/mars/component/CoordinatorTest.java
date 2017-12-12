@@ -38,7 +38,7 @@ public class CoordinatorTest {
         coordinator.addAction(walkAction);
         when(locationManager.updatePosition(walkAction))
                 .thenReturn(walkedPosition1);
-        when(locationManager.getCurrentPosition()).thenReturn(walkedPosition1);
+        when(locationManager.getFinalPosition()).thenReturn(walkedPosition1);
 
         Position finalPosition = coordinator.run();
         assertThat(finalPosition.getyAxis())
@@ -60,7 +60,7 @@ public class CoordinatorTest {
         when(locationManager.updatePosition(walkAction))
                 .thenReturn(walkedPosition1)
                 .thenReturn(walkedPosition2);
-        when(locationManager.getCurrentPosition()).thenReturn(walkedPosition2);
+        when(locationManager.getFinalPosition()).thenReturn(walkedPosition2);
 
         Position finalPosition = coordinator.run();
         assertThat(finalPosition.getyAxis())
@@ -84,7 +84,7 @@ public class CoordinatorTest {
                 .thenReturn(walkedPosition1);
         when(locationManager.updatePosition(turnAroundAction))
                 .thenReturn(walkedPosition2);
-        when(locationManager.getCurrentPosition()).thenReturn(walkedPosition2);
+        when(locationManager.getFinalPosition()).thenReturn(walkedPosition2);
 
         Position finalPosition = coordinator.run();
         assertThat(finalPosition.getyAxis())

@@ -16,6 +16,6 @@ public class ActionCoordinator extends Coordinator {
         } finally {
             actions.clear();
         }
-        return locationManager.getCurrentPosition();
+        return locationManager.getFinalPosition();
     }
 }

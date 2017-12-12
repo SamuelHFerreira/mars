@@ -34,10 +34,4 @@ public class MarsController {
         Position finalPosition = robotService.followCommands(commandList);
         return ResponseEntity.ok(new PositionResponse(finalPosition));
     }
-
-    @GetMapping
-    public ResponseEntity<PositionResponse> whereIam() {
-        Position currentPosition = robotService.getCurrentPosition();
-        return ResponseEntity.ok(new PositionResponse(currentPosition));
-    }
 }

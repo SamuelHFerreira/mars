@@ -10,6 +10,4 @@ public interface RobotService {
 
     Position followCommands(final List<Command> commands) throws MapViolationException;
 
-    Position getCurrentPosition();
-
 }

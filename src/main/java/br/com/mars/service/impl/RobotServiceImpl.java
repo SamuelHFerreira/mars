@@ -32,11 +32,6 @@ public class RobotServiceImpl implements RobotService {
         return coordinator.run();
     }
 
-    @Override
-    public Position getCurrentPosition() {
-        return locationManager.getCurrentPosition();
-    }
-
     private Action getCommandAction(final Command command) {
         try {
             return (Action) command.getAction().getDeclaredConstructor(Command.class).newInstance(command);
